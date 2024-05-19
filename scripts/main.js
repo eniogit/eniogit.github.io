@@ -5,15 +5,10 @@ const currentTempElement = document
 const minTempEl = document.getElementById('min-temp');
 const maxTempEl = document.getElementById('max-temp');
 const precEl = document.getElementById('prec');
-console.log(currentTempElement);
 
 navigator.geolocation.watchPosition(async (position) => {
-  console.log(position);
   const { latitude: lat, longitude: long } = position.coords;
-  console.log(lat);
-  console.log(long);
   const weatherData = await getWeather(lat, long);
-  console.log(weatherData);
   currentTempElement.innerText =
     `${weatherData.current.temperature_2m} ${weatherData.current_units.temperature_2m}`;
   minTempEl.innerText =
@@ -30,7 +25,6 @@ navigator.geolocation.watchPosition(async (position) => {
   const response = await fetch(reverseUrl);
   if (response.ok) {
     const geoData = await response.json()
-    console.log(geoData);
     geoData.response.features.sort((a, b) => {
       return a.properties.distance - b.properties.distance;
     });
